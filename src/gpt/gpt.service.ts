@@ -12,8 +12,10 @@ export class GptService {
   async gptResponse(message: string) {
     const res = await this.openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: message }],
-      max_tokens: 120,
+      messages: [
+        { role: 'user', content: message + ', только короткий ответ' },
+      ],
+      max_tokens: 100,
     });
 
     return res.choices[0].message.content;
