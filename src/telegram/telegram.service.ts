@@ -28,7 +28,9 @@ export class TelegramService extends Telegraf<Context> {
       setTimeout(() => {
         delay = true;
       }, 20000);
-      return this.gptService.gptResponse(msg.slice(3));
+      return this.gptService
+        .gptResponse(msg.slice(3))
+        .catch((e) => console.log(e));
     }
     return 'delay, wait...';
   }
