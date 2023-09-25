@@ -4,6 +4,8 @@ import { Scenes, Telegraf } from 'telegraf';
 
 type Context = Scenes.SceneContext;
 
+let delay = true;
+
 @Update()
 export class TelegramService extends Telegraf<Context> {
   constructor(private readonly gptService: GptService) {
@@ -21,6 +23,13 @@ export class TelegramService extends Telegraf<Context> {
       return;
     }
 
-    return this.gptService.gptResponse(msg.slice(3));
+    if (delay) {
+      delay = false;
+      setTimeout(() => {
+        delay = true;
+      }, 20000);
+      return this.gptService.gptResponse(msg.slice(3));
+    }
+    return 'delay, wait...';
   }
 }
